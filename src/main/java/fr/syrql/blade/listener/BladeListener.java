@@ -16,11 +16,10 @@ import java.util.List;
 public class BladeListener implements Listener {
 
     private final MainBlade mainBlade;
-    private HashMap<String, List<ItemStack>> playersName;
+    private HashMap<String, List<ItemStack>> playersName = new HashMap<>();
 
     public BladeListener(MainBlade mainBlade) {
         this.mainBlade = mainBlade;
-        this.playersName = new HashMap<>();
     }
 
 
@@ -28,7 +27,6 @@ public class BladeListener implements Listener {
     public void onDeath(final PlayerDeathEvent event) {
         Player player = event.getEntity();
 
-        int size = 0;
         List<ItemStack> itemStacks = new ArrayList<>();
 
         for (int i = 0; i < player.getInventory().getSize(); i++) {
@@ -39,8 +37,6 @@ public class BladeListener implements Listener {
                             .getMaterial(mainBlade.getConfigManager().getString("material"))
                     && itemStack.getItemMeta().getDisplayName()
                     .equalsIgnoreCase(mainBlade.getConfigManager().getString("name"))) {
-
-                size = size + 1;
                 itemStacks.add(itemStack);
                 event.getDrops().remove(itemStack);
             }
@@ -61,5 +57,4 @@ public class BladeListener implements Listener {
         player.sendMessage(mainBlade.getConfigManager().getString("message-back"));
         playersName.remove(player.getName());
     }
-
 }
