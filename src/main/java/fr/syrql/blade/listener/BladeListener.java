@@ -16,7 +16,7 @@ import java.util.List;
 public class BladeListener implements Listener {
 
     private final MainBlade mainBlade;
-    private HashMap<String, List<ItemStack>> playersName = new HashMap<>();
+    private final HashMap<String, List<ItemStack>> playersName = new HashMap<>();
 
     public BladeListener(MainBlade mainBlade) {
         this.mainBlade = mainBlade;
