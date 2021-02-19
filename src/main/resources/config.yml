@@ -1,0 +1,23 @@
+############################################
+#             Blade of Infinity            #
+#                Config file               #
+############################################
+
+not-player: "&cYou are not a player."
+no-permission: "&cYou don't have permission to execute this command."
+player-not-found: "&cThis player is not online."
+
+material: DIAMOND_SWORD
+
+enchant:
+  type:
+    - "DAMAGE_ALL 2"
+
+name: "&b» &f&lBlade of Infinity"
+
+lore:
+  - ""
+  - "&7Description: &aWhen you die, this sword remains in your inventory."
+  - ""
+message-blade: "&f<sender> &bsent you a blade."
+message-back: "&bYour Blade is remains in your inventory."

@@ -1,0 +1,68 @@
+package fr.syrql.blade.listener;
+
+import fr.syrql.blade.MainBlade;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class BladeListener implements Listener {
+
+    private final MainBlade mainBlade;
+    private HashMap<String, HashMap<List<ItemStack>, Integer>> playersName = new HashMap<>();
+
+    public BladeListener(MainBlade mainBlade) {
+        this.mainBlade = mainBlade;
+    }
+
+
+    @EventHandler
+    public void onDeath(final PlayerDeathEvent event) {
+        Player player = event.getEntity();
+
+        int size = 0;
+        List<ItemStack> itemStacks = new ArrayList<>();
+        HashMap<List<ItemStack>, Integer> hashMap = new HashMap<>();
+
+        for (int i = 0; i < player.getInventory().getSize(); i++) {
+            final ItemStack itemStack = player.getInventory().getItem(i);
+
+            if (itemStack != null &&
+                    itemStack.getType() == Material
+                            .getMaterial(mainBlade.getConfigManager().getString("material"))
+                    && itemStack.getItemMeta().getDisplayName()
+                    .equalsIgnoreCase(mainBlade.getConfigManager().getString("name"))) {
+
+                size = size + 1;
+                itemStacks.add(itemStack);
+                event.getDrops().remove(itemStack);
+            }
+        }
+        hashMap.put(itemStacks, size);
+        playersName.put(player.getName(), hashMap);
+    }
+
+    @EventHandler
+    public void onRespawn(final PlayerRespawnEvent event) {
+
+        final Player player = event.getPlayer();
+
+        if (playersName.containsKey(player.getName())) {
+            playersName.get(player.getName()).forEach((itemStacks, integer) -> {
+                itemStacks.forEach(itemStack -> {
+                    player.getInventory().addItem(itemStack);
+                });
+            });
+        }
+        player.sendMessage(mainBlade.getConfigManager().getString("message-back"));
+        playersName.remove(player.getName());
+    }
+
+}

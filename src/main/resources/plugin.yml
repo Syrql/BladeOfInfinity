@@ -1,0 +1,7 @@
+main: fr.syrql.blade.MainBlade
+version: 0.0.1
+author: SYRQL
+name: BladeOfInfinity
+commands:
+  bladeofinfinity:
+    aliases: [bofinfinity, boi, bladeoi, bladeofi, bofi]
