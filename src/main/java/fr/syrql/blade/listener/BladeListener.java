@@ -22,7 +22,6 @@ public class BladeListener implements Listener {
         this.mainBlade = mainBlade;
     }
 
-
     @EventHandler
     public void onDeath(final PlayerDeathEvent event) {
         Player player = event.getEntity();
