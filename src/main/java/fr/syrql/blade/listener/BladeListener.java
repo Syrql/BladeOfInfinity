@@ -25,9 +25,9 @@ public class BladeListener implements Listener {
 
     @EventHandler
     public void onDeath(final PlayerDeathEvent event) {
-        Player player = event.getEntity();
 
-        List<ItemStack> itemStacks = new ArrayList<>();
+        final Player player = event.getEntity();
+        final List<ItemStack> itemStacks = new ArrayList<>();
 
         for (int i = 0; i < player.getInventory().getSize(); i++) {
             final ItemStack itemStack = player.getInventory().getItem(i);
