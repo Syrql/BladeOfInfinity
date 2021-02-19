@@ -16,10 +16,11 @@ import java.util.List;
 public class BladeListener implements Listener {
 
     private final MainBlade mainBlade;
-    private HashMap<String, List<ItemStack>> playersName = new HashMap<>();
+    private HashMap<String, List<ItemStack>> playersName;
 
     public BladeListener(MainBlade mainBlade) {
         this.mainBlade = mainBlade;
+        this.playersName = new HashMap<>();
     }
 
 
