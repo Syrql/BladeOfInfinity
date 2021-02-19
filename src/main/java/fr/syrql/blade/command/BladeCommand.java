@@ -43,16 +43,15 @@ public class BladeCommand extends ACommand {
                 enchantment.put(Enchantment.getByName(stringList.get(0)), Integer.parseInt(stringList.get(1)));
             }
 
-            System.out.println(enchantment);
             ItemStack itemStack = new ItemBuilder(Material
                     .getMaterial(mainBlade.getConfigManager().getString("material")))
                     .setName(mainBlade.getConfigManager().getString("name"))
                     .setLore(mainBlade.getConfigManager().getStringList("lore"))
                     .addEnchantments(enchantment)
                     .toItemStack();
+            
             target.getInventory().addItem(itemStack);
-            target.sendMessage(mainBlade.getConfigManager().getString("message-blade")
-                    .replace("<sender>", sender.getName()));
+            target.sendMessage(mainBlade.getConfigManager().getString("message-blade").replace("<sender>", sender.getName()));
         }
         return true;
     }
