@@ -16,11 +16,12 @@ import java.util.List;
 public class BladeListener implements Listener {
 
     private final MainBlade mainBlade;
-    private HashMap<String, HashMap<List<ItemStack>, Integer>> playersName = new HashMap<>();
+    private HashMap<String, List<ItemStack>> playersName = new HashMap<>();
 
     public BladeListener(MainBlade mainBlade) {
         this.mainBlade = mainBlade;
     }
+
 
     @EventHandler
     public void onDeath(final PlayerDeathEvent event) {
@@ -28,7 +29,6 @@ public class BladeListener implements Listener {
 
         int size = 0;
         List<ItemStack> itemStacks = new ArrayList<>();
-        HashMap<List<ItemStack>, Integer> hashMap = new HashMap<>();
 
         for (int i = 0; i < player.getInventory().getSize(); i++) {
             final ItemStack itemStack = player.getInventory().getItem(i);
@@ -44,8 +44,7 @@ public class BladeListener implements Listener {
                 event.getDrops().remove(itemStack);
             }
         }
-        hashMap.put(itemStacks, size);
-        playersName.put(player.getName(), hashMap);
+        playersName.put(player.getName(), itemStacks);
     }
 
     @EventHandler
@@ -54,10 +53,8 @@ public class BladeListener implements Listener {
         final Player player = event.getPlayer();
 
         if (playersName.containsKey(player.getName())) {
-            playersName.get(player.getName()).forEach((itemStacks, integer) -> {
-                itemStacks.forEach(itemStack -> {
-                    player.getInventory().addItem(itemStack);
-                });
+            playersName.get(player.getName()).forEach(itemStack -> {
+                player.getInventory().addItem(itemStack);
             });
         }
         player.sendMessage(mainBlade.getConfigManager().getString("message-back"));
