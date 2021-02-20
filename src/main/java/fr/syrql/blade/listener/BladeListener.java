@@ -53,8 +53,8 @@ public class BladeListener implements Listener {
             playersName.get(player.getName()).forEach(itemStack -> {
                 player.getInventory().addItem(itemStack);
             });
+            player.sendMessage(mainBlade.getConfigManager().getString("message-back"));
+            playersName.remove(player.getName());
         }
-        player.sendMessage(mainBlade.getConfigManager().getString("message-back"));
-        playersName.remove(player.getName());
     }
 }
